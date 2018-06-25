@@ -9,7 +9,7 @@
 #include <sstream>
 
 // HDI device list printing
-struct HIDPrint : csnd::Plugin<0, 0> {
+struct hidprint : csnd::Plugin<0, 0> {
 
   int init() {
     int i = 0;
@@ -39,7 +39,7 @@ struct HIDPrint : csnd::Plugin<0, 0> {
     return OK;
   }
 };
-struct HIDout : csnd::Plugin<1,2> { // csound struct: name , 1 out and 2 ins
+struct hidout : csnd::Plugin<1,2> { // csound struct: name , 1 out and 2 ins
 
       hid_device *handle;
 
@@ -71,12 +71,12 @@ struct HIDout : csnd::Plugin<1,2> { // csound struct: name , 1 out and 2 ins
         hid_set_nonblocking(handle, 1); //sends a Feature report to the device
         hid_free_enumeration(devs);
         csound->plugin_deinit(this);
+        csound->init_error("error message");
     return OK;
   }
 
   int deinit() {
        hid_close(handle);
-       hid_exit();
        return OK;
   }
 
@@ -101,14 +101,15 @@ struct HIDout : csnd::Plugin<1,2> { // csound struct: name , 1 out and 2 ins
 
           outargs[0] = (MYFLT)val;
       }
-      
+    csound->perf_error("error message", insdshead); 
     return OK;
   }
 };
+
 #include <modload.h>
 void csnd::on_load(Csound *csound) {
-  csnd::plugin<HIDPrint>(csound, "hidprint", "", "", csnd::thread::i);
-  csnd::plugin<HIDout>(csound, "HIDout", "k", "ii", csnd::thread::ik);
+  csnd::plugin<hidprint>(csound, "hidprint", "", "", csnd::thread::i);
+  csnd::plugin<hidout>(csound, "hidout", "k", "ii", csnd::thread::ik);
   // tracing for debugging purposes, remove when ready.
   csound->message("HID opcode library loaded \n");
 }

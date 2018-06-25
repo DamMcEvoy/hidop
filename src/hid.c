@@ -258,7 +258,7 @@ static int get_string_property(IOHIDDeviceRef device, CFStringRef prop,
   if (str) {
     CFRange range;
     range.location = 0;
-    range.length = len;
+    range.length = CFStringGetLength(str);
     CFIndex used_buf_len;
     CFStringGetBytes(str, range, kCFStringEncodingUTF32LE, (char)'?', FALSE,
                      (UInt8 *)buf, len, &used_buf_len);
@@ -277,7 +277,7 @@ static int get_string_property_utf8(IOHIDDeviceRef device, CFStringRef prop,
   if (str) {
     CFRange range;
     range.location = 0;
-    range.length = len;
+    range.length = CFStringGetLength(str);
     CFIndex used_buf_len;
     CFStringGetBytes(str, range, kCFStringEncodingUTF8, (char)'?', FALSE,
                      (UInt8 *)buf, len, &used_buf_len);
@@ -312,7 +312,7 @@ static wchar_t *dup_wcs(const wchar_t *s) {
 static int make_path(IOHIDDeviceRef device, char *buf, size_t len) {
   int res;
   unsigned short vid, pid;
-  char transport[3]; // VL 6.6.18 was 32, but that was segfaulting
+  char transport[32]; 
 
   buf[0] = '\0';
 
@@ -432,7 +432,7 @@ hid_enumerate(unsigned short vendor_id, unsigned short product_id) {
       /* Manufacturer and Product strings */
       get_manufacturer_string(dev, buf, BUF_LEN);
       cur_dev->manufacturer_string = dup_wcs(buf);
-      get_product_string(dev, buf, 7); // WAS BUF_LEN but that was segfaulting.
+      get_product_string(dev, buf, BUF_LEN);
       cur_dev->product_string = dup_wcs(buf);
 
       /* VID/PID */
