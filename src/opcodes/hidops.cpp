@@ -64,7 +64,6 @@ struct hidout : csnd::Plugin<1,2> { // csound struct: name , 1 out and 2 ins
     if (cur_dev) {
       handle = hid_open_path(cur_dev->path);// open path to device
       if (!handle) {
-        //printf("unable to open device\n");
         csound->init_error("could not connect to the device");
         return NOTOK;
       }
@@ -97,10 +96,6 @@ struct hidout : csnd::Plugin<1,2> { // csound struct: name , 1 out and 2 ins
         else val = buf[arg1];
           outargs[0] = (MYFLT)val;
       }
-      // else {
-      // csound->perf_error("error message", insdshead); 
-      // }
-   
     return OK;
   }
 };
