@@ -1,0 +1,6 @@
+/Users/damienmcevoy/hidop/build/CMakeFiles/rebuild_cache.dir
+/Users/damienmcevoy/hidop/build/CMakeFiles/edit_cache.dir
+/Users/damienmcevoy/hidop/build/CMakeFiles/joystick.dir
+/Users/damienmcevoy/hidop/build/CMakeFiles/hidops.dir
+/Users/damienmcevoy/hidop/build/CMakeFiles/trackpad.dir
+/Users/damienmcevoy/hidop/build/CMakeFiles/devlist.dir

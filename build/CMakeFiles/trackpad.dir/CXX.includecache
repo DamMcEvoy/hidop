@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/hidapi.h
+wchar.h
+-
+
+/Users/damienmcevoy/hidop/src/tests/trackpad.cpp
+hidapi.h
+/Users/damienmcevoy/hidop/src/tests/hidapi.h
+csignal
+-
+iostream
+-
+

@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/hidapi.h
+wchar.h
+-
+
+/Users/damienmcevoy/hidop/src/tests/joystick.cpp
+hidapi.h
+/Users/damienmcevoy/hidop/src/tests/hidapi.h
+csignal
+-
+cstdlib
+-
+iostream
+-
+

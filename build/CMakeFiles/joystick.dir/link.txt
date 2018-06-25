@@ -1,0 +1,1 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  -std=c++11 -g -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/joystick.dir/src/tests/joystick.cpp.o CMakeFiles/joystick.dir/src/hid.c.o  -o joystick -framework IOKit -framework CoreFoundation 
