@@ -5,22 +5,42 @@
 <CsInstruments>
 
 sr = 44100
-ksmps = 16
+ksmps = 32
 nchnls = 2
 0dbfs = 1
 
 instr 1
 
-kFreq   init    0
+kX      init   0
+kL2     init   0
 
-kFreq   hidout  01, 00 ;freq
+kX      hidout  01, 00 ;freq
+kL2     hidout  08, 00 ;freq
+
+kX      /=      255
+kX      *=      1000
+kX      portk   kX, 0.003
+
+kL2     /=      255
+kL2     portk   kL2, 0.003
+
+;kFreq   init    0
+;kFreq   =       kX
 ;kFreq   /=      255
+;kFreq   *=      1000
+;
+;kAmp    init    0
+;kAmp    =       kL2
+;kAmp    /=      255
+;
+;kAmp    portk   kAmp, 0.003
+   
 
-;kFreq   *=      10
+aSig    poscil  kL2, kX
 
-;kAmp    hidout  08, 00 ;amp
+printk	0.01, kL2
 
-printk	0.01, kFreq
+        outs aSig, aSig
 
 endin
 
