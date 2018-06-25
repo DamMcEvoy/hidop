@@ -97,7 +97,10 @@ struct hidout : csnd::Plugin<1,2> { // csound struct: name , 1 out and 2 ins
         else val = buf[arg1];
           outargs[0] = (MYFLT)val;
       }
-    //csound->perf_error("error message", insdshead); 
+      // else {
+      // csound->perf_error("error message", insdshead); 
+      // }
+   
     return OK;
   }
 };
