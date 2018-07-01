@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+../src/SonyControls.h
+plugin.h
+-
+
 ../src/hidapi.h
 wchar.h
 -
@@ -195,6 +199,8 @@ plugin.h
 -
 sstream
 -
+SonyControls.h
+/Users/damienmcevoy/hidop/src/opcodes/SonyControls.h
 modload.h
 -
 

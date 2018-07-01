@@ -4,6 +4,7 @@
 CMakeFiles/hidops.dir/src/hid.c.o: ../src/hid.c
 CMakeFiles/hidops.dir/src/hid.c.o: ../src/hidapi.h
 
+CMakeFiles/hidops.dir/src/opcodes/hidops.cpp.o: ../src/SonyControls.h
 CMakeFiles/hidops.dir/src/opcodes/hidops.cpp.o: ../src/hidapi.h
 CMakeFiles/hidops.dir/src/opcodes/hidops.cpp.o: /Library/Frameworks/CsoundLib64.framework/Headers/cfgvar.h
 CMakeFiles/hidops.dir/src/opcodes/hidops.cpp.o: /Library/Frameworks/CsoundLib64.framework/Headers/cs_par_structs.h
