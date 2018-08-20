@@ -39,12 +39,16 @@ struct hidprint : csnd::Plugin<0, 0> {
     return OK;
   }
 };
-struct hidout : csnd::Plugin<1,2> { // csound struct: name , 1 out and 2 ins
+struct HID : csnd::Plugin<1,6> { // csound struct: name , 1 out and 4 ins
 
       hid_device *handle;
 
   int init(){//initialise i-time performance:
 
+    int arg1 = (int)inargs[0];//first
+    int arg2 = (int)inargs[1];//second
+    int arg3 = (int)inargs[2];//third
+    int arg4 = (int)inargs[3];//fourth
     int i = 0; //counter 
     struct hid_device_info *devs, *cur_dev;// get info from the device via HIDlib
       
@@ -52,8 +56,8 @@ struct hidout : csnd::Plugin<1,2> { // csound struct: name , 1 out and 2 ins
     devs = hid_enumerate(0, 0);//returns list to devs
     cur_dev = devs;
     while (cur_dev) {//begin looking for the device
-      if (cur_dev->usage_page == 1 && cur_dev->usage == 5 &&
-        cur_dev->vendor_id == 0x54C && cur_dev->product_id == 0x5C4) {
+      if (cur_dev->usage_page == arg1 && cur_dev->usage == arg2 &&
+        cur_dev->vendor_id == arg3 && cur_dev->product_id == arg4) {
       break;
       }
     cur_dev = cur_dev->next;
@@ -84,29 +88,29 @@ struct hidout : csnd::Plugin<1,2> { // csound struct: name , 1 out and 2 ins
     int res = 0;
     unsigned char buf[256];
 
-    int arg1 = (int)inargs[0];//first
-    int arg2 = (int)inargs[1];//second
+    int arg5 = (int)inargs[4];//fifth
+    int arg6 = (int)inargs[5];//sixth
 
     res = hid_read(handle, buf, sizeof(buf));
       if (res > 0) {
         int val;
-        // if arg2 is given, use it as a bitmask
-        if(arg2) val = buf[arg1] & arg2 ? 1 : 0;
+        // if arg6 is given, use it as a bitmask
+        if(arg6) val = buf[arg5] & arg6 ? 1 : 0;
         // else just retrieve the value
-        else val = buf[arg1];
+        else val = buf[arg5];
           outargs[0] = (MYFLT)val;
       }
     return OK;
   }
 };
 
-struct SonyPS4 : csnd::Plugin<1,1> { // csound struct: name , 1 out and 2 ins
+struct SonyDS4 : csnd::Plugin<1,1> { // csound struct: name , 1 out and 2 ins
 
       hid_device *handle;
 
   int init(){//initialise i-time performance:
 
-    extern int sonyControls[63][3];
+    extern int sonyControls[63][4];
     int i = 0; //counter 
     struct hid_device_info *devs, *cur_dev;// get info from the device via HIDlib
       
@@ -150,15 +154,21 @@ struct SonyPS4 : csnd::Plugin<1,1> { // csound struct: name , 1 out and 2 ins
     int cntlr = sonyControls[arg1][0];//select controller
     int bitMask = sonyControls[arg1][1];//get bitMask from 2nd column in row arg1
     int div = sonyControls[arg1][2];//divide by 3rd column in row arg1
+    int flag = sonyControls[arg1][3];//flag for changing variable type
     res = hid_read(handle, buf, sizeof(buf));
+
     
       if (res > 0) {
         int val;
         // if arg2 is given, use it as a bitmask
         if(bitMask) val = buf[cntlr] & bitMask ? 1 : 0;
         // else just retrieve the value
-        else val = buf[cntlr];
-          outargs[0] = (MYFLT)val/div;
+        else if(flag == 1) 
+          val = ((char *)buf)[cntlr];
+        else 
+          val = buf[cntlr];
+        
+        outargs[0] = (MYFLT)val/div;
       }
     return OK;
   }
@@ -167,8 +177,8 @@ struct SonyPS4 : csnd::Plugin<1,1> { // csound struct: name , 1 out and 2 ins
 #include <modload.h>
 void csnd::on_load(Csound *csound) {
   csnd::plugin<hidprint>(csound, "hidprint", "", "", csnd::thread::i);
-  csnd::plugin<hidout>(csound, "hidout", "k", "ii", csnd::thread::ik);
-  csnd::plugin<SonyPS4>(csound, "SonyPS4", "k", "i", csnd::thread::ik);
+  csnd::plugin<HID>(csound, "HID", "k", "iiiiii", csnd::thread::ik);
+  csnd::plugin<SonyDS4>(csound, "SonyDS4", "k", "i", csnd::thread::ik);
   // tracing for debugging purposes, remove when ready.
   csound->message("HID opcode library loaded \n");
 }

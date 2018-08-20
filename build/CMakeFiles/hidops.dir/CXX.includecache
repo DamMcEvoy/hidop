@@ -7,8 +7,6 @@
 #IncludeRegexTransform: 
 
 ../src/SonyControls.h
-plugin.h
--
 
 ../src/hidapi.h
 wchar.h

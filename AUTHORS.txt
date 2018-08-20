@@ -17,3 +17,5 @@ For a comprehensive list of contributions, see the commit list at github:
 HDIOPS Authors:
 
 Victor Lazzarini <victor.lazzarini@mu.ie>
+
+Damien McEvoy <yovecm.neimad@gmail.com>

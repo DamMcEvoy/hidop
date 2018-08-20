@@ -11,15 +11,18 @@ nchnls = 2
 
 instr 1
 
-hidprint
+kOut		HID 1, 2, 76, 617, 2, 0
+
+printk 0.1, kOut
 
 endin
 
 </CsInstruments>
 <CsScore>
-i 1 0 2
+i 1 0 10
 </CsScore>
 </CsoundSynthesizer>
+
 <bsbPanel>
  <label>Widgets</label>
  <objectName/>

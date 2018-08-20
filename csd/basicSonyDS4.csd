@@ -11,39 +11,28 @@ nchnls = 2
 
 instr 1
 
-kX      init   0
-kL2     init   0
+kLAX			SonyDS4		4
+kLAY			SonyDS4		1
 
-kX      hidout  01, 00 ;freq
-kL2     hidout  08, 00 ;amp
+kRAX			SonyDS4		2
+kRAY			SonyDS4		3
 
-kL2    portk   kL2, 0.005
+k1				=				kLAX
+k2				=				kLAY
 
-kFreq   init    0
-kFreq   =       kX
-kFreq   /=      255
-;kFreq                           *=              -1
-kFreq                           +=              2
-kFreq                           *=              55
+k3				=				kRAX
+k4				=				kRAY
 
-kAmp    init    0
-kAmp    =       kL2
-kAmp    /=      255
-
-
-   
-
-aSig    poscil  kAmp, kFreq
-
-printk	0.01, kL2
-
-        outs aSig, aSig
+printk 0.1, k1
+;printk 0.1, k2
+;printk 0.1, k3
+;printk 0.1, k4
 
 endin
 
 </CsInstruments>
 <CsScore>
-i1 0 z
+i 1 0 z
 </CsScore>
 </CsoundSynthesizer>
 <bsbPanel>
